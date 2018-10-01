@@ -1,0 +1,49 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /com/example
+
+spring:
+  datasource:
+    platform: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mydb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: root
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 50
+      max-wait: 10000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      keep-alive: true
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filter:
+        config:
+          enabled: true
+
+mybatis-plus:
+  global-config:
+    db-config:
+      db-type: mysql
+      id-type: auto
+      field-strategy: not_null
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+    refresh: true
+  type-aliases-package: com.example.entity
+  mapper-locations: classpath:/com/example/mapper/*Mapper.xml
+  configuration:
+    jdbc-type-for-null: null
+    cache-enabled: false
+    map-underscore-to-camel-case: true
+
+jwt-security:
+  token-signing-key: demo
+  timeout: 1800000
