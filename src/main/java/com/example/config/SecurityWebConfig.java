@@ -48,10 +48,10 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
         AuthenticationManager authenticationManager = authenticationManager();
         http.csrf().disable();
         http.cors().disable();
-//        http.authorizeRequests()
-//                .antMatchers("/com/example/users/userRegister/**").permitAll()
-//                .anyRequest()
-//                .authenticated();
+        http.authorizeRequests()
+                .antMatchers("/users/userRegister/**").permitAll()
+                .anyRequest()
+                .authenticated();
         http.addFilterAfter(new JwtLoginFilter(authenticationManager, jwtTokenService, usersService, objectMapper), UsernamePasswordAuthenticationFilter.class);
         http.addFilterAfter(new JwtAuthenFilter(jwtTokenService, usersService, settings), JwtLoginFilter.class);
         http.logout().logoutUrl("/com/example/logout").addLogoutHandler(new JwtLogoutHandler(jwtTokenService, usersService, settings));
@@ -59,7 +59,14 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-
+        web.ignoring().antMatchers(
+                "/v2/api-docs",
+                "/docs.html",
+                "/swagger-resources/configuration/ui",
+                "/swagger-resources",
+                "/swagger-resources/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
     }
 
 }

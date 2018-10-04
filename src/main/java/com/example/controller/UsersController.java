@@ -6,6 +6,8 @@ import com.example.common.ajax.CallResult;
 import com.example.dto.UserDTO;
 import com.example.entity.Users;
 import com.example.service.UsersService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RestController
 @RequestMapping("/users")
+@Api(value = "用户模块",tags = {"用户管理"})
 public class UsersController {
 
     private HttpServletRequest request;
@@ -44,6 +47,7 @@ public class UsersController {
     }
 
     @PostMapping("/userRegister")
+    @ApiOperation(value = "userRegister",notes = "用户注册")
     public AjaxResult<Integer> userRegister(@RequestBody UserDTO userDTO) {
         log.info("{}", userDTO);
         AjaxResult<Integer> result=new AjaxResult<>(HttpStatus.OK.value(), CallResult.SUCCESS.getCode());
