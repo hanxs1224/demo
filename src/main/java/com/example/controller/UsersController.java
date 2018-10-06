@@ -5,6 +5,8 @@ import com.example.common.ajax.AjaxResult;
 import com.example.common.ajax.CallResult;
 import com.example.common.utils.UserUtils;
 import com.example.dto.UserDTO;
+import com.example.dto.UserValidateGroups1;
+import com.example.dto.UserValidateGroups2;
 import com.example.entity.Users;
 import com.example.service.UsersService;
 import io.swagger.annotations.Api;
@@ -14,10 +16,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Instant;
+import java.util.Date;
 
 /**
  * <p>
@@ -79,6 +84,28 @@ public class UsersController {
         Users user = usersService.getById(userId);
         BeanUtils.copyProperties(user, dto);
         result.setData(dto);
+        return result;
+    }
+
+    @PostMapping("updateUserState")
+    @ApiOperation(value = "updateUserState", notes = "更新用户状态")
+    public AjaxResult<Void> updateUserState(@RequestBody @Validated(value = {UserValidateGroups1.class}) UserDTO userDTO) {
+        return updateUserInfo(userDTO);
+    }
+
+    @PostMapping("updateUserMobile")
+    @ApiOperation(value = "updateUserMobile", notes = "更新用户手机号")
+    public AjaxResult<Void> updateUserMobile(@RequestBody @Validated(value = {UserValidateGroups2.class}) UserDTO userDTO) {
+        return updateUserInfo(userDTO);
+    }
+
+    private AjaxResult<Void> updateUserInfo(UserDTO userDTO){
+        AjaxResult<Void> result = new AjaxResult<>(HttpStatus.OK.value(), CallResult.SUCCESS.getCode());
+        Users users = new Users();
+        BeanUtils.copyProperties(userDTO, users);
+        users.setUserId(userUtils.getUserIdFromHeader(request));
+        users.setUpdatedTime(Date.from(Instant.now()));
+        usersService.updateById(users);
         return result;
     }
 

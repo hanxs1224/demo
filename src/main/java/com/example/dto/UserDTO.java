@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -31,12 +33,14 @@ public class UserDTO implements Serializable {
     @ApiModelProperty(value = "令牌有效截止时间")
     private Date tokenTime;
 
+    @NotNull(message = "激活状态不能为空", groups = {UserValidateGroups1.class})
     @ApiModelProperty(value = "激活状态（0：未激活,1：已激活）")
     private Boolean status;
 
     @ApiModelProperty(value = "邮箱")
     private String email;
 
+    @NotBlank(message = "手机号不能为空", groups = {UserValidateGroups2.class})
     @ApiModelProperty(value = "手机号")
     private String mobile;
 
