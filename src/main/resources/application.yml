@@ -7,7 +7,7 @@ spring:
   datasource:
     platform: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mydb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://localhost:3306/mydb?useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8&useSSL=false
     username: root
     password: root
     druid:
@@ -27,6 +27,9 @@ spring:
       filter:
         config:
           enabled: true
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: GMT+8
 
 mybatis-plus:
   global-config:
@@ -43,6 +46,8 @@ mybatis-plus:
     jdbc-type-for-null: null
     cache-enabled: false
     map-underscore-to-camel-case: true
+
+
 
 jwt-security:
   token-signing-key: demo
