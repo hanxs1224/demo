@@ -18,12 +18,15 @@ public class UserDTO implements Serializable {
     @ApiModelProperty(value = "userId")
     private Long userId;
 
+    @NotNull(message = "用户名不能为空", groups = {UserValidateGroups1.class})
     @ApiModelProperty(value = "用户名")
     private String username;
 
+    @NotNull(message = "密码不能为空", groups = {UserValidateGroups1.class})
     @ApiModelProperty(value = "密码")
     private String password;
 
+    @NotNull(message = "确认密码不能为空", groups = {UserValidateGroups1.class})
     @ApiModelProperty(value = "确认密码")
     private String confirmPassword;
 
@@ -33,7 +36,6 @@ public class UserDTO implements Serializable {
     @ApiModelProperty(value = "令牌有效截止时间")
     private Date tokenTime;
 
-    @NotNull(message = "激活状态不能为空", groups = {UserValidateGroups1.class})
     @ApiModelProperty(value = "激活状态（0：未激活,1：已激活）")
     private Boolean status;
 
@@ -56,5 +58,9 @@ public class UserDTO implements Serializable {
     private Date updatedTime;
 
     private Long version;
+
+    @NotNull(message = "注册类型不能为空", groups = {UserValidateGroups1.class})
+    @ApiModelProperty(value = "注册类型（0：邮箱，1：手机）")
+    private Long registerType;
 
 }

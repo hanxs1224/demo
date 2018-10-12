@@ -30,6 +30,21 @@ spring:
   jackson:
     date-format: "yyyy-MM-dd HH:mm:ss"
     time-zone: GMT+8
+  mail:
+    default-encoding: utf-8
+    host: smtp.mymail.com
+    port: 25
+    username: master@mymail.com
+    password: hxs17671
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls: false
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
 
 mybatis-plus:
   global-config:
@@ -47,7 +62,7 @@ mybatis-plus:
     cache-enabled: false
     map-underscore-to-camel-case: true
 
-
+baseUrl: http://localhost
 
 jwt-security:
   token-signing-key: demo

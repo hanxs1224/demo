@@ -41,3 +41,7 @@ commit ;
 INSERT INTO `mydb`.`user_role` (`user_role_id`, `role_name_cn`, `role_name_en`, `status`, `creator`, `created_time`, `updated_by`, `updated_time`, `version`)
 VALUES (1, '普通用户', 'ROLE_USER', DEFAULT, 'NULL', DEFAULT, 'NULL', 'NULL', DEFAULT);
 COMMIT ;
+
+
+ALTER TABLE users ADD register_type bigint(1) DEFAULT 0 NOT NULL COMMENT '注册类型（0：邮箱，1：手机）';
+commit ;

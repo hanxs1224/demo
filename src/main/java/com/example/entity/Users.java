@@ -100,5 +100,9 @@ public class Users implements Serializable {
     @Version
     private Long version;
 
+    /**
+     * 注册类型（0：邮箱，1：手机）
+     */
+    private Long registerType;
 
 }
